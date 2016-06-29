@@ -1,5 +1,6 @@
 /*
-  Sketch_1_ReadAndWrite
+  Sketch 2
+  Read And Write
 
   modified 2016/6/19
   by http://www.freenove.com
@@ -54,7 +55,6 @@ void loop()
   rfid.findCard(PICC_REQIDL, str);
   //Anti-collision detection, read serial number of card
   if (rfid.anticoll(str) == MI_OK) {
-
     Serial.print("The card's number is  : ");
     //print the card serial number
     for (int i = 0; i < 4; i++) {
@@ -75,9 +75,9 @@ void loop()
 
   rfid.halt();
 }
+
 //write the card
 void writeCard(int blockAddr) {
-
   if (rfid.auth(PICC_AUTHENT1A, blockAddr, sectorKeyA[blockAddr / 4], rfid.serNum) == MI_OK) //authenticate
   {
     //write data
@@ -90,9 +90,9 @@ void writeCard(int blockAddr) {
     }
   }
 }
+
 //read the card
 void readCard(int blockAddr) {
-
   if ( rfid.auth(PICC_AUTHENT1A, blockAddr, sectorKeyA[blockAddr / 4], rfid.serNum) == MI_OK) // authenticate
   {
     // select a block of the sector to read its data
@@ -101,6 +101,7 @@ void readCard(int blockAddr) {
     if ( rfid.read(blockAddr, str) == MI_OK) {
       Serial.print("The data is (char type display): ");
       Serial.println((char *)str);
+      Serial.print("The data is (HEX type display): ");
       for (int i = 0; i < sizeof(str); i++) {
         Serial.print(str[i], HEX);
         Serial.print(" ");

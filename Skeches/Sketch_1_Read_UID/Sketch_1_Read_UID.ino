@@ -1,5 +1,6 @@
 /*
-  Sketch_1_Read_UID
+  Sketch 1
+  Read UID
 
   modified 2016/6/19
   by http://www.freenove.com
@@ -9,7 +10,7 @@
 #include <RFID.h>
 
 //D10:pin of card reader SDA.  D9:pin of card reader RST
-RFID rfid(10,9);   
+RFID rfid(10, 9);
 unsigned char status;
 unsigned char str[MAX_LEN];  //MAX_LEN is 16: size of the array
 
@@ -32,9 +33,9 @@ void loop()
     if (rfid.anticoll(str) == MI_OK) {
       Serial.print("The card's number is  : ");
       //Display card serial number
-      for(int i = 0; i < 4; i++){
-        Serial.print(0x0F & (str[i] >> 4),HEX);
-        Serial.print(0x0F & str[i],HEX);
+      for (int i = 0; i < 4; i++) {
+        Serial.print(0x0F & (str[i] >> 4), HEX);
+        Serial.print(0x0F & str[i], HEX);
       }
       Serial.println("");
     }
@@ -46,15 +47,15 @@ void loop()
 void ShowCardType(unsigned char * type)
 {
   Serial.print("Card type: ");
-  if(type[0]==0x04&&type[1]==0x00) 
+  if (type[0] == 0x04 && type[1] == 0x00)
     Serial.println("MFOne-S50");
-  else if(type[0]==0x02&&type[1]==0x00)
+  else if (type[0] == 0x02 && type[1] == 0x00)
     Serial.println("MFOne-S70");
-  else if(type[0]==0x44&&type[1]==0x00)
+  else if (type[0] == 0x44 && type[1] == 0x00)
     Serial.println("MF-UltraLight");
-  else if(type[0]==0x08&&type[1]==0x00)
+  else if (type[0] == 0x08 && type[1] == 0x00)
     Serial.println("MF-Pro");
-  else if(type[0]==0x44&&type[1]==0x03)
+  else if (type[0] == 0x44 && type[1] == 0x03)
     Serial.println("MF Desire");
   else
     Serial.println("Unknown");
